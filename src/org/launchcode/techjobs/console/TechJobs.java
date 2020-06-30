@@ -32,11 +32,11 @@ public class TechJobs {
         // Allow the user to search until they manually quit
         while (true) {
 
-            String actionChoice = getUserSelection("View jobs by: (Please enter an Integer)", actionChoices);
+            String actionChoice = getUserSelection("View jobs by:\r\n(Enter 0 or 1)\r\n", actionChoices);
 
             if (actionChoice.equals("list")) {
 
-                String columnChoice = getUserSelection("List", columnChoices);
+                String columnChoice = getUserSelection("List:\r\n(Enter 0-4)\r\n", columnChoices);
 
                 if (columnChoice.equals("all")) { //this doesn't work yet
                     printJobs(JobData.findAll());
@@ -44,18 +44,18 @@ public class TechJobs {
 
                     ArrayList<String> results = JobData.findAll(columnChoice);
 
-                    System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
+                    System.out.println("\n*** Jobs By " + columnChoices.get(columnChoice) + " ***");
 
                     // Print list of skills, employers, etc
                     for (String item : results) {
-                        System.out.println(item);
+                        System.out.println("--> " + item);
                     }
                 }
 
             } else { // choice is "search"
 
                 // How does the user want to search (e.g. by skill or employer)
-                String searchField = getUserSelection("Search by: (Please enter an Integer)", columnChoices);
+                String searchField = getUserSelection("Search by:\r\n(Enter 0-4)\r\n", columnChoices);
 
                 // What is their search term?
                 System.out.println("\nSearch term: ");
@@ -95,9 +95,11 @@ public class TechJobs {
                 System.out.println("" + j + " - " + choices.get(choiceKeys[j]));
             }
 
+            System.out.println("\r\nPlease enter an Integer: ");
+
             while (!in.hasNextInt()) {
                 in.next(); // Read and discard offending non-int input
-                System.out.print("\r\nThat is not an Integer.\r\nPlease enter an integer: "); // Re-prompt
+                System.out.print("\r\nThat is not an Integer.\r\nPlease enter an integer:\r\n"); // Re-prompt
             }
 
             choiceIdx = in.nextInt();
