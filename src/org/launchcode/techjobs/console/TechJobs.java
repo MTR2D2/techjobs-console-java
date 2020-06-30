@@ -32,7 +32,7 @@ public class TechJobs {
         // Allow the user to search until they manually quit
         while (true) {
 
-            String actionChoice = getUserSelection("View jobs by:", actionChoices);
+            String actionChoice = getUserSelection("View jobs by: (Please enter an Integer)", actionChoices);
 
             if (actionChoice.equals("list")) {
 
@@ -55,7 +55,7 @@ public class TechJobs {
             } else { // choice is "search"
 
                 // How does the user want to search (e.g. by skill or employer)
-                String searchField = getUserSelection("Search by:", columnChoices);
+                String searchField = getUserSelection("Search by: (Please enter an Integer)", columnChoices);
 
                 // What is their search term?
                 System.out.println("\nSearch term: ");
@@ -95,7 +95,13 @@ public class TechJobs {
                 System.out.println("" + j + " - " + choices.get(choiceKeys[j]));
             }
 
+            while (!in.hasNextInt()) {
+                in.next(); // Read and discard offending non-int input
+                System.out.print("\r\nThat is not an Integer.\r\nPlease enter an integer: "); // Re-prompt
+            }
+
             choiceIdx = in.nextInt();
+
             in.nextLine();
 
             // Validate user's input
