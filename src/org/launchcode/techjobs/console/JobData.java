@@ -7,9 +7,11 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -52,6 +54,24 @@ public class JobData {
         loadData();
 
         return allJobs;
+    }
+
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> row : allJobs) {
+            for (Map.Entry<String, String> aField : row.entrySet()) {
+                if (aField.getValue().toLowerCase().contains(value.toLowerCase())) {
+                    jobs.add(row);
+                    break;
+                }
+            }
+        }
+
+        return jobs;
     }
 
     /**
@@ -126,3 +146,9 @@ public class JobData {
     }
 
 }
+/*
+What is the data type of a “job” record? ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+Why does findAll(String) return something of type ArrayList<String> while findByColumnAndValue(String, String) and findAll()
+return something of type ArrayList<HashMap<String, String>>?
+Why is loadData() called at the top of each of these four methods? Does this mean that we load the data from the CSV file each time one of them is called?
+ */
